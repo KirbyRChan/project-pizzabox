@@ -17,7 +17,7 @@ namespace PizzaBox.Client
         /// <summary>
         /// 
         /// </summary>
-        /// /// <param name="args"></param>
+        /// <param name="args"></param>
         private static void Main(string[] args)
         {
             Run();

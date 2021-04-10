@@ -2,7 +2,10 @@ using PizzaBox.Domain.Abstracts;
 
 namespace PizzaBox.Domain.Models
 {
-    public class Topping : AComponent
+    /// <summary>
+    /// 
+    /// </summary>
+    public class Crust : AComponent
     {
 
     }

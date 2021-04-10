@@ -4,13 +4,12 @@ using PizzaBox.Domain.Models;
 namespace PizzaBox.Domain.Abstracts
 {
     /// <summary>
-    /// Represents the Pizza Abstract Class
+    /// 
     /// </summary>
     public abstract class APizza
     {
         public Crust Crust { get; set; }
         public Size Size { get; set; }
-
         public List<Topping> Toppings { get; set; }
 
         protected APizza()
@@ -21,6 +20,7 @@ namespace PizzaBox.Domain.Abstracts
         private void Factory()
         {
             Toppings = new List<Topping>();
+
             AddCrust();
             AddSize();
             AddToppings();
@@ -30,6 +30,7 @@ namespace PizzaBox.Domain.Abstracts
         {
             Crust = new Crust();
         }
+
         public virtual void AddSize()
         {
             Size = new Size();

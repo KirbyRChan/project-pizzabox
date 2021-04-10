@@ -6,18 +6,24 @@ namespace PizzaBox.Domain.Abstracts
     /// <summary>
     /// Represents the Store Abstract Class
     /// </summary>
-
     [XmlInclude(typeof(ChicagoStore))]
     [XmlInclude(typeof(NewYorkStore))]
-    public abstract class AStore
+    public class AStore
     {
         public string Name { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         protected AStore()
         {
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return $"{Name}";
