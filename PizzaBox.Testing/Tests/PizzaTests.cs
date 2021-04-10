@@ -9,7 +9,7 @@ namespace PizzaBox.Testing.Tests
         public void Test_PizzaCrust()
         {
             //arrange
-            var sut = new MeatPizza();
+            var sut = new Pizza();
 
             var actual = sut.Crust;
 

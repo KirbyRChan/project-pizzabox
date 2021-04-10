@@ -10,7 +10,7 @@ namespace PizzaBox.Testing.Tests
         public void Test_StoreName()
         {
             //arrange
-            var sut = new ChicagoStore();
+            var sut = new Store();
 
             //act
             var actual = sut.Name;

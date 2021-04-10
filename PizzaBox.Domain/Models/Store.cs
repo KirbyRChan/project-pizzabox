@@ -5,12 +5,12 @@ namespace PizzaBox.Domain.Models
     /// <summary>
     /// 
     /// </summary>
-    public class ChicagoStore : AStore
+    public class Store : AStore
     {
         /// <summary>
         /// 
         /// </summary>
-        public ChicagoStore()
+        public Store()
         {
             Name = "ChicagoStore";
         }
