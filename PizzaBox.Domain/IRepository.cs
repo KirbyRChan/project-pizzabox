@@ -4,6 +4,7 @@ namespace PizzaBox.Domain
 {
     public interface IRepository
     {
+        List<Models.Store> GetAllStores();
         List<Models.Pizza> GetAllPizzas();
 
         List<Models.Size> GetAllSizes();

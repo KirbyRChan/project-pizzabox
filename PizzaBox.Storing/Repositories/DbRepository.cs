@@ -39,12 +39,20 @@ namespace PizzaBox.Storing
 
         public List<Size> GetAllSizes()
         {
-            throw new System.NotImplementedException();
+            var Sizes = context.Sizes;
+            return Sizes.Select(mapper.Map).ToList();
+        }
+
+        public List<Store> GetAllStores()
+        {
+            var Stores = context.Stores;
+            return Stores.Select(mapper.Map).ToList();
         }
 
         public List<Topping> GetAllToppings()
         {
-            throw new System.NotImplementedException();
+            var Toppings = context.Toppings;
+            return Toppings.Select(mapper.Map).ToList();
         }
 
         public List<Order> GetOrderHistoryByName(string name)

@@ -1,7 +1,27 @@
+using PizzaBox.Domain.Models;
+using PizzaBox.Storing.Entities;
+
 namespace PizzaBox.Storing
 {
     public class Mapper : IMapper
     {
+        public Domain.Models.Store Map(Entities.Store Store)
+        {
+            return new Domain.Models.Store
+            {
+                Id = Store.StoreId,
+                Name = Store.StoreName
+            };
+        }
+
+        public Entities.Store Map(Domain.Models.Store Store)
+        {
+            return new Entities.Store
+            {
+                StoreId = Store.Id,
+                StoreName = Store.Name
+            };
+        }
         public Domain.Models.Pizza Map(Entities.Pizza Pizza)
         {
             return new Domain.Models.Pizza

@@ -4,6 +4,8 @@ namespace PizzaBox.Storing
 {
     public interface IMapper
     {
+        PizzaBox.Domain.Models.Store Map(PizzaBox.Storing.Entities.Store Store);
+        PizzaBox.Storing.Entities.Store Map(PizzaBox.Domain.Models.Store Store);
         PizzaBox.Domain.Models.Pizza Map(PizzaBox.Storing.Entities.Pizza Pizza);
         PizzaBox.Storing.Entities.Pizza Map(PizzaBox.Domain.Models.Pizza Pizza);
         PizzaBox.Domain.Models.Crust Map(PizzaBox.Storing.Entities.Crust Crust);

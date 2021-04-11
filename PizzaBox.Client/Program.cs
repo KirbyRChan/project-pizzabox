@@ -4,6 +4,7 @@ using PizzaBox.Domain.Abstracts;
 using PizzaBox.Domain.Models;
 using PizzaBox.Domain;
 using PizzaBox.Client.Singletons;
+using System.Linq;
 
 namespace PizzaBox.Client
 {
@@ -23,81 +24,67 @@ namespace PizzaBox.Client
         {
             IRepository repository = Dependencies.CreateRepository();
             Console.WriteLine("Fetching PizzaBox Database");
-            Run();
+            Run(repository);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        private static void Run()
+        private static void Run(IRepository repository)
         {
             var order = new Order();
 
             Console.WriteLine("Welcome to PizzaBox");
-            DisplayStoreMenu();
-
-
+            // DisplayStoreMenu(repository);
+            // DisplayPizzaMenu(repository);
+            // DisplayCrustMenu(repository);
+            // DisplaySizeMenu(repository);
+            DisplayToppingMenu(repository);
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private static void DisplayOrder(APizza pizza)
+        private static void DisplayStoreMenu(IRepository repository)
         {
-            Console.WriteLine($"Your order is: {pizza}");
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private static void DisplayPizzaMenu()
-        {
-            var index = 0;
-
-            foreach (var item in _pizzaSingleton.Pizzas)
+            var Stores = repository.GetAllStores();
+            foreach (var store in Stores)
             {
-                Console.WriteLine($"{++index} - {item}");
+                Console.WriteLine($"{store.Id,-2} {store.Name}");
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        private static void DisplayStoreMenu()
+        private static void DisplayPizzaMenu(IRepository repository)
         {
-            var index = 0;
-
-            foreach (var item in _storeSingleton.Stores)
+            var Pizzas = repository.GetAllPizzas();
+            foreach (var pizza in Pizzas)
             {
-                Console.WriteLine($"{++index} - {item}");
+                Console.WriteLine($"{pizza.Id,-2} {pizza.Name} {pizza.Topping1Id} {pizza.Topping2Id} {pizza.Topping3Id} {pizza.Topping4Id} {pizza.Topping5Id}");
             }
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        private static APizza SelectPizza()
+        private static void DisplayCrustMenu(IRepository repository)
         {
-            var input = int.Parse(Console.ReadLine());
-            var pizza = _pizzaSingleton.Pizzas[input - 1];
-
-            DisplayOrder(pizza);
-
-            return pizza;
+            var Crusts = repository.GetAllCrusts();
+            foreach (var crust in Crusts)
+            {
+                Console.WriteLine($"{crust.Id,-2} {crust.Name} {crust.Price:C2}");
+            }
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        private static AStore SelectStore()
+        private static void DisplaySizeMenu(IRepository repository)
         {
-            var input = int.Parse(Console.ReadLine()); // be careful (think execpetion/error handling)
-
-            DisplayPizzaMenu();
-
-            return _storeSingleton.Stores[input - 1];
+            var Sizes = repository.GetAllSizes();
+            foreach (var size in Sizes)
+            {
+                Console.WriteLine($"{size.Id,-2} {size.Name} {size.Price:C2}");
+            }
+        }
+        private static void DisplayToppingMenu(IRepository repository)
+        {
+            var Toppings = repository.GetAllToppings();
+            Console.WriteLine("+--+------------+------+");
+            Console.WriteLine("|ID|TOPPING     | PRICE|");
+            Console.WriteLine("+--+------------+------+");
+            foreach (var topping in Toppings)
+            {
+                Console.WriteLine($"|{topping.Id,-2}|{topping.Name,-12}|{topping.Price,6:C2}|");
+            }
+            Console.WriteLine("+--+------------+------+");
         }
     }
 }
