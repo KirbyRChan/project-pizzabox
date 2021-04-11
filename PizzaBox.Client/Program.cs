@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using PizzaBox.Domain.Abstracts;
 using PizzaBox.Domain.Models;
+using PizzaBox.Domain;
 using PizzaBox.Client.Singletons;
 
 namespace PizzaBox.Client
@@ -11,8 +12,8 @@ namespace PizzaBox.Client
     /// </summary>
     internal class Program
     {
-        private static readonly StoreSingleton _storeSingleton = StoreSingleton.Instance;
-        private static readonly PizzaSingleton _pizzaSingleton = PizzaSingleton.Instance;
+        //private static readonly StoreSingleton _storeSingleton = StoreSingleton.Instance;
+        //private static readonly PizzaSingleton _pizzaSingleton = PizzaSingleton.Instance;
 
         /// <summary>
         /// 
@@ -20,6 +21,8 @@ namespace PizzaBox.Client
         /// <param name="args"></param>
         private static void Main(string[] args)
         {
+            IRepository repository = Dependencies.CreateRepository();
+            Console.WriteLine("Fetching PizzaBox Database");
             Run();
         }
 
@@ -33,11 +36,7 @@ namespace PizzaBox.Client
             Console.WriteLine("Welcome to PizzaBox");
             DisplayStoreMenu();
 
-            order.Customer = new Customer();
-            order.Store = SelectStore();
-            order.Pizza = SelectPizza();
 
-            order.Save();
         }
 
         /// <summary>

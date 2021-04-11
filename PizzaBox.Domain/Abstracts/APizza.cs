@@ -8,34 +8,22 @@ namespace PizzaBox.Domain.Abstracts
     /// </summary>
     public abstract class APizza
     {
-        public Crust Crust { get; set; }
-        public Size Size { get; set; }
-        public List<Topping> Toppings { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int? Topping1Id { get; set; }
+        public int? Topping2Id { get; set; }
+        public int? Topping3Id { get; set; }
+        public int? Topping4Id { get; set; }
+        public int? Topping5Id { get; set; }
 
-        protected APizza()
-        {
-            Factory();
-        }
+        // protected APizza()
+        // {
+        //     Factory();
+        // }
 
-        private void Factory()
-        {
-            Toppings = new List<Topping>();
-
-            AddCrust();
-            AddSize();
-            AddToppings();
-        }
-
-        public virtual void AddCrust()
-        {
-            Crust = new Crust();
-        }
-
-        public virtual void AddSize()
-        {
-            Size = new Size();
-        }
-
-        public abstract void AddToppings();
+        // private void Factory()
+        // {
+        //     Toppings = new List<int?>();
+        // }
     }
 }

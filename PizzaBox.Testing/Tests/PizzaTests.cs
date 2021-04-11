@@ -11,7 +11,7 @@ namespace PizzaBox.Testing.Tests
             //arrange
             var sut = new Pizza();
 
-            var actual = sut.Crust;
+            var actual = sut.Name;
 
             Assert.Null(actual);
 

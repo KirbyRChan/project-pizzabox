@@ -9,6 +9,7 @@ namespace PizzaBox.Domain.Abstracts
     [XmlInclude(typeof(Store))]
     public class AStore
     {
+        public int Id { get; set; }
         public string Name { get; set; }
 
         /// <summary>
@@ -22,7 +23,6 @@ namespace PizzaBox.Domain.Abstracts
         /// <summary>
         /// 
         /// </summary>
-        /// <returns></returns>
         public override string ToString()
         {
             return $"{Name}";
