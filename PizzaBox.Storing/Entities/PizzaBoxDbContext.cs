@@ -31,21 +31,21 @@ namespace PizzaBox.Storing.Entities
 
             modelBuilder.Entity<Crust>(entity =>
             {
-                entity.Property(e => e.CrustId).ValueGeneratedNever();
+                entity.Property(e => e.CrustId).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.CrustName).IsUnicode(false);
             });
 
             modelBuilder.Entity<Customer>(entity =>
             {
-                entity.Property(e => e.CustomerId).ValueGeneratedNever();
+                entity.Property(e => e.CustomerId).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.CustomerName).IsUnicode(false);
             });
 
             modelBuilder.Entity<Order>(entity =>
             {
-                entity.Property(e => e.OrderId).ValueGeneratedNever();
+                entity.Property(e => e.OrderId).ValueGeneratedOnAdd();
 
                 entity.HasOne(d => d.Crust)
                     .WithMany(p => p.Orders)
@@ -105,7 +105,7 @@ namespace PizzaBox.Storing.Entities
 
             modelBuilder.Entity<Pizza>(entity =>
             {
-                entity.Property(e => e.PizzaId).ValueGeneratedNever();
+                entity.Property(e => e.PizzaId).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.PizzaName).IsUnicode(false);
 
@@ -137,21 +137,21 @@ namespace PizzaBox.Storing.Entities
 
             modelBuilder.Entity<Size>(entity =>
             {
-                entity.Property(e => e.SizeId).ValueGeneratedNever();
+                entity.Property(e => e.SizeId).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.SizeName).IsUnicode(false);
             });
 
             modelBuilder.Entity<Store>(entity =>
             {
-                entity.Property(e => e.StoreId).ValueGeneratedNever();
+                entity.Property(e => e.StoreId).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.StoreName).IsUnicode(false);
             });
 
             modelBuilder.Entity<Topping>(entity =>
             {
-                entity.Property(e => e.ToppingId).ValueGeneratedNever();
+                entity.Property(e => e.ToppingId).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.ToppingName).IsUnicode(false);
             });

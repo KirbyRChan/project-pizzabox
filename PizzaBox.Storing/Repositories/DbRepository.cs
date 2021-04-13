@@ -59,5 +59,67 @@ namespace PizzaBox.Storing
         {
             throw new System.NotImplementedException();
         }
+        public Customer GetCustomerByName(string name)
+        {
+            var Customer = context.Customers.Where(x => x.CustomerName == name).FirstOrDefault();
+            if (Customer == null)
+            {
+                context.Add(mapper.Map(new Domain.Models.Customer { Name = name }));
+                context.SaveChanges();
+
+                Customer = context.Customers.Where(x => x.CustomerName == name).FirstOrDefault();
+            }
+
+            return mapper.Map(Customer);
+
+        }
+
+        public Store GetStoreById(int Id)
+        {
+            var Store = context.Stores.Where(x => x.StoreId == Id).FirstOrDefault();
+            if (Store == null)
+            {
+                return null;
+            }
+            return mapper.Map(Store);
+        }
+        public Pizza GetPizzaById(int Id)
+        {
+            var Pizza = context.Pizzas.Where(x => x.PizzaId == Id).FirstOrDefault();
+            if (Pizza == null)
+            {
+                return null;
+            }
+            return mapper.Map(Pizza);
+        }
+
+        public Size GetSizeById(int Id)
+        {
+            var Size = context.Sizes.Where(x => x.SizeId == Id).FirstOrDefault();
+            if (Size == null)
+            {
+                return null;
+            }
+            return mapper.Map(Size);
+        }
+        public Crust GetCrustById(int Id)
+        {
+            var Crust = context.Crusts.Where(x => x.CrustId == Id).FirstOrDefault();
+            if (Crust == null)
+            {
+                return null;
+            }
+            return mapper.Map(Crust);
+        }
+
+        public Topping GetToppingById(int? Id)
+        {
+            var Topping = context.Toppings.Where(x => x.ToppingId == Id).FirstOrDefault();
+            if (Topping != null)
+            {
+                return mapper.Map(Topping);
+            }
+            return new Topping();
+        }
     }
 }

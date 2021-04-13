@@ -5,6 +5,23 @@ namespace PizzaBox.Storing
 {
     public class Mapper : IMapper
     {
+        public Domain.Models.Customer Map(Entities.Customer Customer)
+        {
+            return new Domain.Models.Customer
+            {
+                Id = Customer.CustomerId,
+                Name = Customer.CustomerName
+            };
+        }
+
+        public Entities.Customer Map(Domain.Models.Customer Customer)
+        {
+            return new Entities.Customer
+            {
+                CustomerId = Customer.Id,
+                CustomerName = Customer.Name
+            };
+        }
         public Domain.Models.Store Map(Entities.Store Store)
         {
             return new Domain.Models.Store
