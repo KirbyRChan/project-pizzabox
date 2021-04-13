@@ -16,7 +16,7 @@ namespace PizzaBox.Client
         //private static readonly StoreSingleton _storeSingleton = StoreSingleton.Instance;
         //private static readonly PizzaSingleton _pizzaSingleton = PizzaSingleton.Instance;
 
-        private static IRepository repository;
+        private static IRepository repo;
 
         /// <summary>
         /// 
@@ -24,7 +24,7 @@ namespace PizzaBox.Client
         /// <param name="args"></param>
         private static void Main(string[] args)
         {
-            repository = Dependencies.CreateRepository();
+            repo = Dependencies.CreateRepository();
             Run();
         }
 
@@ -33,36 +33,51 @@ namespace PizzaBox.Client
         /// </summary>
         private static void Run()
         {
-            var order = new Order();
+            var Order = new Order();
 
             Console.WriteLine("WELCOME TO THE PIZZABOX");
             Customer Customer = GetNameInput();
+            Order.CustomerId = Customer.Id;
+
             Store Store = GetStoreInput();
+            Order.StoreId = Store.Id;
+
             Pizza Pizza = GetPizzaInput();
+            Order.PizzaId = Pizza.Id;
+
             Crust Crust = GetCrustInput();
+            Order.CrustId = Crust.Id;
+
             Size Size = GetSizeInput();
+            Order.SizeId = Size.Id;
+
             if (Pizza.Name.Equals("Custom"))
             {
                 CustomPizzaToppings(Pizza);
             }
+            Order.ToppingsId = Pizza.ToppingsId;
+
+            PrintSaveOrder(Order);
+
+
         }
 
         private static Customer GetNameInput()
         {
             Console.Write("Please enter your name: ");
             string name = Console.ReadLine();
-            var Customer = repository.GetCustomerByName(name);
+            var Customer = repo.GetCustomerByName(name);
             Console.WriteLine($"Hello, {Customer.Name}. Your ID is {Customer.Id}. Let's start on your order.\n");
             return Customer;
         }
         private static Store GetStoreInput()
         {
-            DisplayMenus.DisplayStoreMenu(repository);
+            DisplayMenus.DisplayStoreMenu(repo);
             Console.Write("Please choose a store by entering its ID: ");
             while (true)
             {
                 int num = validNumInput();
-                Store Store = repository.GetStoreById(num);
+                Store Store = repo.GetStoreById(num);
                 if (Store == null)
                 {
                     Console.Write("This ID is not associated with any store, try again: ");
@@ -76,12 +91,12 @@ namespace PizzaBox.Client
         }
         private static Pizza GetPizzaInput()
         {
-            DisplayMenus.DisplayPizzaMenu(repository);
+            DisplayMenus.DisplayPizzaMenu(repo);
             Console.Write("Please choose a pizza by entering its ID: ");
             while (true)
             {
                 int num = validNumInput();
-                Pizza Pizza = repository.GetPizzaById(num);
+                Pizza Pizza = repo.GetPizzaById(num);
                 if (Pizza == null)
                 {
                     Console.Write("This ID is not associated with any pizza, try again: ");
@@ -95,57 +110,57 @@ namespace PizzaBox.Client
         }
         private static Crust GetCrustInput()
         {
-            DisplayMenus.DisplayCrustMenu(repository);
+            DisplayMenus.DisplayCrustMenu(repo);
             Console.Write("Please choose a crust by entering its ID: ");
             while (true)
             {
                 int num = validNumInput();
-                Crust Crust = repository.GetCrustById(num);
+                Crust Crust = repo.GetCrustById(num);
                 if (Crust == null)
                 {
                     Console.Write("This ID is not associated with any crust, try again: ");
                 }
                 else
                 {
-                    Console.WriteLine($"You have chosen {Crust.Name}.\n");
+                    Console.WriteLine($"You have chosen {Crust.Name} ({Crust.Price:C2}).\n");
                     return Crust;
                 }
             }
         }
         private static Size GetSizeInput()
         {
-            DisplayMenus.DisplaySizeMenu(repository);
+            DisplayMenus.DisplaySizeMenu(repo);
             Console.Write("Please choose a size by entering its ID: ");
             while (true)
             {
                 int num = validNumInput();
-                Size Size = repository.GetSizeById(num);
+                Size Size = repo.GetSizeById(num);
                 if (Size == null)
                 {
                     Console.Write("This ID is not associated with any size, try again: ");
                 }
                 else
                 {
-                    Console.WriteLine($"You have chosen {Size.Name}.\n");
+                    Console.WriteLine($"You have chosen {Size.Name} ({Size.Price:C2}).\n");
                     return Size;
                 }
             }
         }
         private static Topping GetToppingInput()
         {
-            DisplayMenus.DisplayToppingMenu(repository);
+            DisplayMenus.DisplayToppingMenu(repo);
             Console.Write("Please choose a topping by entering its ID: ");
             while (true)
             {
                 int num = validNumInput();
-                Topping Topping = repository.GetToppingById(num);
+                Topping Topping = repo.GetToppingById(num);
                 if (Topping.Name == null)
                 {
                     Console.Write("This ID is not associated with any topping, try again: ");
                 }
                 else
                 {
-                    Console.WriteLine($"You have chosen {Topping.Name}.\n");
+                    Console.WriteLine($"You have chosen {Topping.Name} ({Topping.Price:C2}).\n");
                     return Topping;
                 }
             }
@@ -210,6 +225,32 @@ namespace PizzaBox.Client
                     Console.WriteLine("Please enter either 1 or 0.");
                 }
             }
+        }
+
+        private static decimal ToppingsTotalCost(Order order)
+        {
+            decimal total = 0;
+            foreach (int i in order.ToppingsId)
+            {
+                total += repo.GetToppingById(i).Price;
+            }
+            return total;
+        }
+
+        private static void PrintSaveOrder(Order order)
+        {
+            Console.WriteLine($"Pizza Summary: ");
+            Console.WriteLine($"    Store: {repo.GetStoreById(order.StoreId).Name}");
+            Console.WriteLine($"    Pizza: {repo.GetPizzaById(order.PizzaId).Name}");
+            Console.WriteLine($"    Crust: {repo.GetCrustById(order.CrustId).Name}");
+            Console.WriteLine($"    Size: {repo.GetSizeById(order.SizeId).Name}");
+            Console.Write("    Topping(s): ");
+            foreach (int i in order.ToppingsId)
+            {
+                Console.Write($"{repo.GetToppingById(i).Name} ");
+            }
+            decimal price = ToppingsTotalCost(order) + repo.GetCrustById(order.CrustId).Price + repo.GetSizeById(order.SizeId).Price;
+            Console.WriteLine($"\n    Price: {price:C2}");
         }
     }
 }
