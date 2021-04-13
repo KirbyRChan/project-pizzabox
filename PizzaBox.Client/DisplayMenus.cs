@@ -29,11 +29,11 @@ namespace PizzaBox.Client
             foreach (var pizza in Pizzas)
             {
                 Console.WriteLine($"|{pizza.Id,-2}|{pizza.Name,-10}|" +
-                $"{repository.GetToppingById(pizza.Topping1Id).Name,-14}|" +
-                $"{repository.GetToppingById(pizza.Topping2Id).Name,-14}|" +
-                $"{repository.GetToppingById(pizza.Topping3Id).Name,-14}|" +
-                $"{repository.GetToppingById(pizza.Topping4Id).Name,-14}|" +
-                $"{repository.GetToppingById(pizza.Topping5Id).Name,-14}|");
+                $"{repository.GetToppingById(pizza.ToppingsId[0]).Name,-14}|" +
+                $"{repository.GetToppingById(pizza.ToppingsId[1]).Name,-14}|" +
+                $"{repository.GetToppingById(pizza.ToppingsId[2]).Name,-14}|" +
+                $"{repository.GetToppingById(pizza.ToppingsId[3]).Name,-14}|" +
+                $"{repository.GetToppingById(pizza.ToppingsId[4]).Name,-14}|");
             }
             Console.WriteLine("+--+----------+--------------+--------------+--------------+--------------+--------------+");
         }

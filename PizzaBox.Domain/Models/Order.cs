@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using PizzaBox.Domain.Abstracts;
 
 namespace PizzaBox.Domain.Models
@@ -13,13 +14,7 @@ namespace PizzaBox.Domain.Models
         public int PizzaId { get; set; }
         public int CrustId { get; set; }
         public int SizeId { get; set; }
-        public int? Topping1Id { get; set; }
-        public int? Topping2Id { get; set; }
-        public int? Topping3Id { get; set; }
-        public int? Topping4Id { get; set; }
-        public int? Topping5Id { get; set; }
+        public List<int?> ToppingsId { get; set; }
         public decimal Price { get; set; }
-
-
     }
 }

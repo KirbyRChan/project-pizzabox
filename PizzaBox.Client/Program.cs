@@ -36,179 +36,180 @@ namespace PizzaBox.Client
             var order = new Order();
 
             Console.WriteLine("WELCOME TO THE PIZZABOX");
-            order.CustomerId = GetNameInput();
-            order.StoreId = GetStoreInput();
-            order.PizzaId = GetPizzaInput();
-            order.CrustId = GetCrustInput();
-            order.SizeId = GetSizeInput();
-            if (order.PizzaId == 1)
+            Customer Customer = GetNameInput();
+            Store Store = GetStoreInput();
+            Pizza Pizza = GetPizzaInput();
+            Crust Crust = GetCrustInput();
+            Size Size = GetSizeInput();
+            if (Pizza.Name.Equals("Custom"))
             {
-                GetToppingInput(order);
+                CustomPizzaToppings(Pizza);
             }
         }
 
-        private static int GetNameInput()
+        private static Customer GetNameInput()
         {
             Console.Write("Please enter your name: ");
             string name = Console.ReadLine();
             var Customer = repository.GetCustomerByName(name);
             Console.WriteLine($"Hello, {Customer.Name}. Your ID is {Customer.Id}. Let's start on your order.\n");
-            return Customer.Id;
+            return Customer;
         }
-        private static int GetStoreInput()
+        private static Store GetStoreInput()
         {
-            int num = -1;
-            bool valid = false;
-
             DisplayMenus.DisplayStoreMenu(repository);
-            while (!valid)
+            Console.Write("Please choose a store by entering its ID: ");
+            while (true)
             {
-                Console.Write("Please choose a store by entering its ID: ");
-                string input = Console.ReadLine();
-                valid = int.TryParse(input, out num);
-                if (valid)
+                int num = validNumInput();
+                Store Store = repository.GetStoreById(num);
+                if (Store == null)
                 {
-                    Store Store = repository.GetStoreById(num);
-                    if (Store == null)
-                    {
-                        Console.WriteLine("This ID is not associated with any store.");
-                        valid = false;
-                    }
-                    else
-                    {
-                        Console.WriteLine($"You have chosen {Store.Name}.\n");
-                    }
+                    Console.Write("This ID is not associated with any store, try again: ");
                 }
                 else
                 {
-                    Console.WriteLine("Invalid input, please enter an integer.");
+                    Console.WriteLine($"You have chosen {Store.Name}.\n");
+                    return Store;
                 }
             }
-            return num;
         }
-        private static int GetPizzaInput()
+        private static Pizza GetPizzaInput()
         {
-            int num = -1;
-            bool valid = false;
-
             DisplayMenus.DisplayPizzaMenu(repository);
-            while (!valid)
+            Console.Write("Please choose a pizza by entering its ID: ");
+            while (true)
             {
-                Console.Write("Please choose a pizza by entering its ID: ");
-                string input = Console.ReadLine();
-                valid = int.TryParse(input, out num);
-                if (valid)
+                int num = validNumInput();
+                Pizza Pizza = repository.GetPizzaById(num);
+                if (Pizza == null)
                 {
-                    Pizza Pizza = repository.GetPizzaById(num);
-                    if (Pizza == null)
-                    {
-                        Console.WriteLine("This ID is not associated with any pizza.");
-                        valid = false;
-                    }
-                    else
-                    {
-                        Console.WriteLine($"You have chosen {Pizza.Name}.\n");
-                    }
+                    Console.Write("This ID is not associated with any pizza, try again: ");
                 }
                 else
                 {
-                    Console.WriteLine("Invalid input, please enter an integer.");
+                    Console.WriteLine($"You have chosen {Pizza.Name}.\n");
+                    return Pizza;
                 }
             }
-            return num;
         }
-        private static int GetCrustInput()
+        private static Crust GetCrustInput()
         {
-            int num = -1;
-            bool valid = false;
-
             DisplayMenus.DisplayCrustMenu(repository);
-            while (!valid)
+            Console.Write("Please choose a crust by entering its ID: ");
+            while (true)
             {
-                Console.Write("Please choose a crust by entering its ID: ");
-                string input = Console.ReadLine();
-                valid = int.TryParse(input, out num);
-                if (valid)
+                int num = validNumInput();
+                Crust Crust = repository.GetCrustById(num);
+                if (Crust == null)
                 {
-                    Crust Crust = repository.GetCrustById(num);
-                    if (Crust == null)
-                    {
-                        Console.WriteLine("This ID is not associated with any crust.");
-                        valid = false;
-                    }
-                    else
-                    {
-                        Console.WriteLine($"You have chosen {Crust.Name}.\n");
-                    }
+                    Console.Write("This ID is not associated with any crust, try again: ");
                 }
                 else
                 {
-                    Console.WriteLine("Invalid input, please enter an integer.");
+                    Console.WriteLine($"You have chosen {Crust.Name}.\n");
+                    return Crust;
                 }
             }
-            return num;
         }
-        private static int GetSizeInput()
+        private static Size GetSizeInput()
         {
-            int num = -1;
-            bool valid = false;
-
             DisplayMenus.DisplaySizeMenu(repository);
-            while (!valid)
+            Console.Write("Please choose a size by entering its ID: ");
+            while (true)
             {
-                Console.Write("Please choose a size by entering its ID: ");
-                string input = Console.ReadLine();
-                valid = int.TryParse(input, out num);
-                if (valid)
+                int num = validNumInput();
+                Size Size = repository.GetSizeById(num);
+                if (Size == null)
                 {
-                    Size Size = repository.GetSizeById(num);
-                    if (Size == null)
-                    {
-                        Console.WriteLine("This ID is not associated with any size.");
-                        valid = false;
-                    }
-                    else
-                    {
-                        Console.WriteLine($"You have chosen {Size.Name}.\n");
-                    }
+                    Console.Write("This ID is not associated with any size, try again: ");
                 }
                 else
                 {
-                    Console.WriteLine("Invalid input, please enter an integer.");
+                    Console.WriteLine($"You have chosen {Size.Name}.\n");
+                    return Size;
                 }
             }
-            return num;
         }
-        private static int GetToppingInput(Order order)
+        private static Topping GetToppingInput()
         {
-            int num = -1;
-            bool valid = false;
-
             DisplayMenus.DisplayToppingMenu(repository);
-            while (!valid)
+            Console.Write("Please choose a topping by entering its ID: ");
+            while (true)
             {
-                Console.Write("Please choose a topping by entering its ID: ");
-                string input = Console.ReadLine();
-                valid = int.TryParse(input, out num);
-                if (valid)
+                int num = validNumInput();
+                Topping Topping = repository.GetToppingById(num);
+                if (Topping.Name == null)
                 {
-                    Topping Topping = repository.GetToppingById(num);
-                    if (Topping.Name == null)
-                    {
-                        Console.WriteLine("This ID is not associated with any topping.");
-                        valid = false;
-                    }
-                    else
-                    {
-                        Console.WriteLine($"You have chosen {Topping.Name}.\n");
-                    }
+                    Console.Write("This ID is not associated with any topping, try again: ");
                 }
                 else
                 {
-                    Console.WriteLine("Invalid input, please enter an integer.");
+                    Console.WriteLine($"You have chosen {Topping.Name}.\n");
+                    return Topping;
                 }
             }
-            return num;
+        }
+
+        private static int validNumInput()
+        {
+            int num;
+            while (true)
+            {
+                string input = Console.ReadLine();
+                bool valid = int.TryParse(input, out num);
+                if (valid)
+                {
+                    return num;
+                }
+                else
+                {
+                    Console.Write("Invalid input, please enter an integer: ");
+                }
+            }
+        }
+
+        private static void CustomPizzaToppings(Pizza Pizza)
+        {
+            bool moreToppings = true;
+            int num = 0;
+            while (moreToppings && Pizza.ToppingsId[4] == null)
+            {
+                Console.Write("Would you like to add more toppings?( 1.Yes | 2.No ): ");
+                num = validNumInput();
+                if (num == 1)
+                {
+                    Topping Topping = GetToppingInput();
+                    if (Pizza.ToppingsId[0] == null)
+                    {
+                        Pizza.ToppingsId[0] = Topping.Id;
+                    }
+                    else if (Pizza.ToppingsId[1] == null)
+                    {
+                        Pizza.ToppingsId[1] = Topping.Id;
+                    }
+                    else if (Pizza.ToppingsId[2] == null)
+                    {
+                        Pizza.ToppingsId[2] = Topping.Id;
+                    }
+                    else if (Pizza.ToppingsId[3] == null)
+                    {
+                        Pizza.ToppingsId[3] = Topping.Id;
+                    }
+                    else
+                    {
+                        Pizza.ToppingsId[4] = Topping.Id;
+                    }
+                }
+                else if (num == 0)
+                {
+                    moreToppings = false;
+                }
+                else
+                {
+                    Console.WriteLine("Please enter either 1 or 0.");
+                }
+            }
         }
     }
 }

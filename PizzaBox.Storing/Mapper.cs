@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using PizzaBox.Domain.Models;
 using PizzaBox.Storing.Entities;
 
@@ -41,15 +42,17 @@ namespace PizzaBox.Storing
         }
         public Domain.Models.Pizza Map(Entities.Pizza Pizza)
         {
+            List<int?> pizzaToppingsId = new List<int?>();
+            pizzaToppingsId.Add(Pizza.Topping1Id);
+            pizzaToppingsId.Add(Pizza.Topping2Id);
+            pizzaToppingsId.Add(Pizza.Topping3Id);
+            pizzaToppingsId.Add(Pizza.Topping4Id);
+            pizzaToppingsId.Add(Pizza.Topping5Id);
             return new Domain.Models.Pizza
             {
                 Id = Pizza.PizzaId,
                 Name = Pizza.PizzaName,
-                Topping1Id = Pizza.Topping1Id,
-                Topping2Id = Pizza.Topping2Id,
-                Topping3Id = Pizza.Topping3Id,
-                Topping4Id = Pizza.Topping4Id,
-                Topping5Id = Pizza.Topping5Id
+                ToppingsId = pizzaToppingsId
             };
         }
 
@@ -59,11 +62,11 @@ namespace PizzaBox.Storing
             {
                 PizzaId = Pizza.Id,
                 PizzaName = Pizza.Name,
-                Topping1Id = Pizza.Topping1Id,
-                Topping2Id = Pizza.Topping2Id,
-                Topping3Id = Pizza.Topping3Id,
-                Topping4Id = Pizza.Topping4Id,
-                Topping5Id = Pizza.Topping5Id
+                Topping1Id = Pizza.ToppingsId[0],
+                Topping2Id = Pizza.ToppingsId[1],
+                Topping3Id = Pizza.ToppingsId[2],
+                Topping4Id = Pizza.ToppingsId[3],
+                Topping5Id = Pizza.ToppingsId[4]
             };
         }
 
@@ -129,6 +132,12 @@ namespace PizzaBox.Storing
 
         public Domain.Models.Order Map(Entities.Order Order)
         {
+            List<int?> orderToppingsId = new List<int?>();
+            orderToppingsId.Add(Order.Topping1Id);
+            orderToppingsId.Add(Order.Topping2Id);
+            orderToppingsId.Add(Order.Topping3Id);
+            orderToppingsId.Add(Order.Topping4Id);
+            orderToppingsId.Add(Order.Topping5Id);
             return new Domain.Models.Order
             {
                 Id = Order.OrderId,
@@ -137,6 +146,7 @@ namespace PizzaBox.Storing
                 PizzaId = Order.PizzaId,
                 CrustId = Order.CrustId,
                 SizeId = Order.SizeId,
+                ToppingsId = orderToppingsId,
                 Price = Order.Price
             };
         }
@@ -151,6 +161,11 @@ namespace PizzaBox.Storing
                 PizzaId = Order.PizzaId,
                 CrustId = Order.CrustId,
                 SizeId = Order.SizeId,
+                Topping1Id = Order.ToppingsId[0],
+                Topping2Id = Order.ToppingsId[1],
+                Topping3Id = Order.ToppingsId[2],
+                Topping4Id = Order.ToppingsId[3],
+                Topping5Id = Order.ToppingsId[4],
                 Price = Order.Price
             };
         }

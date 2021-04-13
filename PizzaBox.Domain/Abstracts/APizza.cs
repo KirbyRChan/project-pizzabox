@@ -10,20 +10,6 @@ namespace PizzaBox.Domain.Abstracts
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int? Topping1Id { get; set; }
-        public int? Topping2Id { get; set; }
-        public int? Topping3Id { get; set; }
-        public int? Topping4Id { get; set; }
-        public int? Topping5Id { get; set; }
-
-        // protected APizza()
-        // {
-        //     Factory();
-        // }
-
-        // private void Factory()
-        // {
-        //     Toppings = new List<int?>();
-        // }
+        public List<int?> ToppingsId { get; set; }
     }
 }
