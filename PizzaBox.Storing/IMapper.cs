@@ -2,6 +2,9 @@ using PizzaBox.Domain.Models;
 
 namespace PizzaBox.Storing
 {
+    /// <summary>
+    /// Mapper Interface
+    /// </summary>
     public interface IMapper
     {
         PizzaBox.Domain.Models.Customer Map(PizzaBox.Storing.Entities.Customer Customer);

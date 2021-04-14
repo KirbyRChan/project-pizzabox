@@ -13,7 +13,7 @@ namespace PizzaBox.Domain.Abstracts
         public string Name { get; set; }
 
         /// <summary>
-        /// 
+        /// Abstract Store
         /// </summary>
         protected AStore()
         {
@@ -21,7 +21,7 @@ namespace PizzaBox.Domain.Abstracts
         }
 
         /// <summary>
-        /// 
+        /// Converts Abstract Store to String
         /// </summary>
         public override string ToString()
         {

@@ -4,6 +4,9 @@ using PizzaBox.Storing.Entities;
 
 namespace PizzaBox.Storing
 {
+    /// <summary>
+    /// Maps DB entities to objects in Domain
+    /// </summary>
     public class Mapper : IMapper
     {
         public Domain.Models.Customer Map(Entities.Customer Customer)

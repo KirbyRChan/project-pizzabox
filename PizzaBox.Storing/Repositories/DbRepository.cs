@@ -5,6 +5,9 @@ using System.Linq;
 
 namespace PizzaBox.Storing
 {
+    /// <summary>
+    /// Database Repository. Handles calls from Client to Database.
+    /// </summary>
     public class DbRepository : IRepository
     {
         private readonly Entities.PizzaBoxDbContext context;

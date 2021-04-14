@@ -4,7 +4,7 @@ using PizzaBox.Domain.Models;
 namespace PizzaBox.Domain.Abstracts
 {
     /// <summary>
-    /// 
+    /// Abstract Pizza
     /// </summary>
     public abstract class APizza
     {

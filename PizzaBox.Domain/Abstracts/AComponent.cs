@@ -1,7 +1,7 @@
 namespace PizzaBox.Domain.Abstracts
 {
     /// <summary>
-    /// 
+    /// Abstract Component
     /// </summary>
     public class AComponent
     {

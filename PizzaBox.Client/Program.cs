@@ -9,7 +9,7 @@ using System.Linq;
 namespace PizzaBox.Client
 {
     /// <summary>
-    /// 
+    /// Main Client UI
     /// </summary>
     internal class Program
     {
@@ -19,7 +19,7 @@ namespace PizzaBox.Client
         private static IRepository repo;
 
         /// <summary>
-        /// 
+        /// Main
         /// </summary>
         /// <param name="args"></param>
         private static void Main(string[] args)
@@ -29,7 +29,7 @@ namespace PizzaBox.Client
         }
 
         /// <summary>
-        /// 
+        /// The actual program
         /// </summary>
         private static void Run()
         {

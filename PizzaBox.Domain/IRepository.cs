@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace PizzaBox.Domain
 {
+    /// <summary>
+    /// Repository Interface
+    /// </summary>
     public interface IRepository
     {
         List<Models.Store> GetAllStores();
