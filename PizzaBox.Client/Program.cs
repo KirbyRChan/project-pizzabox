@@ -33,22 +33,80 @@ namespace PizzaBox.Client
         /// </summary>
         private static void Run()
         {
+            Console.WriteLine("WELCOME TO THE PIZZABOX");
+
+            List<Order> Orders = new List<Order>();
+            Customer Customer = GetNameInput();
+            Store Store = GetStoreInput();
+
+            int num = -1;
+            while (num != 0 && num != 1)
+            {
+                Console.WriteLine("\n0.Save order and exit\n1.Exit\n2.View order history\n3.View current order\n4.Add pizza to order");
+                Console.Write("Please enter a number: ");
+                num = validNumInput();
+                switch (num)
+                {
+                    case 0:
+                        //save
+                        foreach (var x in Orders)
+                        {
+                            repo.AddOrder(x);
+                        }
+                        Console.WriteLine("Order has been saved. Have a good day.");
+                        break;
+                    case 1:
+                        Console.WriteLine("Have a good day.");
+                        //exit
+                        break;
+                    case 2:
+                        var OrderHistory = repo.GetOrderHistoryById(Customer.Id);
+                        if (OrderHistory == null || OrderHistory.Count == 0)
+                        {
+                            Console.WriteLine("No order history found.");
+                        }
+                        else
+                        {
+                            foreach (var x in OrderHistory)
+                            {
+                                PrintOrder(x);
+                            }
+                        }
+                        break;
+                    case 3:
+                        if (Orders.Count == 0)
+                        {
+                            Console.WriteLine("Your order is currently empty.");
+                        }
+                        decimal total = 0;
+                        foreach (var x in Orders)
+                        {
+                            PrintOrder(x);
+                            total += x.Price;
+                        }
+                        Console.WriteLine($"Total cost: {total:C2}");
+                        break;
+                    case 4:
+                        Orders.Add(NewPizza(Customer, Store));
+                        break;
+                    default:
+                        Console.WriteLine("There is no option with this number.");
+                        break;
+                }
+            }
+        }
+        private static Order NewPizza(Customer Customer, Store Store)
+        {
             var Order = new Order();
 
-            Console.WriteLine("WELCOME TO THE PIZZABOX");
-            Customer Customer = GetNameInput();
-            Order.CustomerId = Customer.Id;
-
-            Store Store = GetStoreInput();
-            Order.StoreId = Store.Id;
-
             Pizza Pizza = GetPizzaInput();
-            Order.PizzaId = Pizza.Id;
-
             Crust Crust = GetCrustInput();
-            Order.CrustId = Crust.Id;
-
             Size Size = GetSizeInput();
+
+            Order.CustomerId = Customer.Id;
+            Order.StoreId = Store.Id;
+            Order.PizzaId = Pizza.Id;
+            Order.CrustId = Crust.Id;
             Order.SizeId = Size.Id;
 
             if (Pizza.Name.Equals("Custom"))
@@ -57,9 +115,9 @@ namespace PizzaBox.Client
             }
             Order.ToppingsId = Pizza.ToppingsId;
 
-            PrintSaveOrder(Order);
+            PrintOrder(Order);
 
-
+            return Order;
         }
 
         private static Customer GetNameInput()
@@ -190,7 +248,7 @@ namespace PizzaBox.Client
             int num = 0;
             while (moreToppings && Pizza.ToppingsId[4] == null)
             {
-                Console.Write("Would you like to add more toppings?( 1.Yes | 2.No ): ");
+                Console.Write("Would you like to add more toppings?( 0.No | 1.Yes ): ");
                 num = validNumInput();
                 if (num == 1)
                 {
@@ -230,9 +288,12 @@ namespace PizzaBox.Client
         private static decimal ToppingsTotalCost(Order order)
         {
             decimal total = 0;
-            foreach (int i in order.ToppingsId)
+            foreach (int? i in order.ToppingsId)
             {
-                total += repo.GetToppingById(i).Price;
+                if (i != null)
+                {
+                    total += repo.GetToppingById(i).Price;
+                }
             }
             return total;
         }
@@ -245,17 +306,16 @@ namespace PizzaBox.Client
             Console.WriteLine($"    Crust: {repo.GetCrustById(order.CrustId).Name}");
             Console.WriteLine($"    Size: {repo.GetSizeById(order.SizeId).Name}");
             Console.Write("    Topping(s): ");
-            foreach (int i in order.ToppingsId)
+            foreach (int? i in order.ToppingsId)
             {
-                Console.Write($"{repo.GetToppingById(i).Name} ");
+                if (i != null)
+                {
+                    Console.Write($"{repo.GetToppingById(i).Name} ");
+                }
             }
             decimal price = ToppingsTotalCost(order) + repo.GetCrustById(order.CrustId).Price + repo.GetSizeById(order.SizeId).Price;
+            order.Price = price;
             Console.WriteLine($"\n    Price: {price:C2}");
-        }
-
-        private static void SaveOrder(Order order)
-        {
-
         }
     }
 }

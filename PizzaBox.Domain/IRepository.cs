@@ -16,7 +16,7 @@ namespace PizzaBox.Domain
 
         void AddOrder(Models.Order Order);
 
-        List<Models.Order> GetOrderHistoryByName(string name);
+        List<Models.Order> GetOrderHistoryById(int Id);
         Models.Customer GetCustomerByName(string name);
         Models.Store GetStoreById(int Id);
         Models.Pizza GetPizzaById(int Id);

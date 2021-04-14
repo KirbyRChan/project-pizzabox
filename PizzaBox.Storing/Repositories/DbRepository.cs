@@ -55,9 +55,14 @@ namespace PizzaBox.Storing
             return Toppings.Select(mapper.Map).ToList();
         }
 
-        public List<Order> GetOrderHistoryByName(string name)
+        public List<Order> GetOrderHistoryById(int Id)
         {
-            throw new System.NotImplementedException();
+            var OrderHistory = context.Orders.Where(x => x.CustomerId == Id);
+            if (OrderHistory == null)
+            {
+                return null;
+            }
+            return OrderHistory.Select(mapper.Map).ToList();
         }
         public Customer GetCustomerByName(string name)
         {
