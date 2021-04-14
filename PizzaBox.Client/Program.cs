@@ -67,10 +67,13 @@ namespace PizzaBox.Client
                         }
                         else
                         {
+                            decimal spent = 0;
                             foreach (var x in OrderHistory)
                             {
                                 PrintOrder(x);
+                                spent += x.Price;
                             }
+                            Console.WriteLine($"Total spent: {spent:C2}");
                         }
                         break;
                     case 3:
