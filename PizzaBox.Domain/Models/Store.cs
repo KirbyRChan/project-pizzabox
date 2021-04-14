@@ -12,12 +12,12 @@ namespace PizzaBox.Domain.Models
         /// </summary>
         public Store()
         {
-            Name = "ChicagoStore";
+            Name = "Store";
         }
 
         public override string ToString()
         {
-            return $"This is Chitown - {Name}";
+            return $"This is {Name}";
         }
     }
 }

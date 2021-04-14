@@ -14,7 +14,7 @@ namespace PizzaBox.Domain
 
         List<Models.Topping> GetAllToppings();
 
-        void AddOrder(Models.Order superHero);
+        void AddOrder(Models.Order Order);
 
         List<Models.Order> GetOrderHistoryByName(string name);
         Models.Customer GetCustomerByName(string name);

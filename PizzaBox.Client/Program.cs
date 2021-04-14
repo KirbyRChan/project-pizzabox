@@ -237,7 +237,7 @@ namespace PizzaBox.Client
             return total;
         }
 
-        private static void PrintSaveOrder(Order order)
+        private static void PrintOrder(Order order)
         {
             Console.WriteLine($"Pizza Summary: ");
             Console.WriteLine($"    Store: {repo.GetStoreById(order.StoreId).Name}");
@@ -251,6 +251,11 @@ namespace PizzaBox.Client
             }
             decimal price = ToppingsTotalCost(order) + repo.GetCrustById(order.CrustId).Price + repo.GetSizeById(order.SizeId).Price;
             Console.WriteLine($"\n    Price: {price:C2}");
+        }
+
+        private static void SaveOrder(Order order)
+        {
+
         }
     }
 }
